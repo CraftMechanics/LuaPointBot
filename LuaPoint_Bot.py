@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import chatlogging
+import random
 client = discord.Client()
 
 command_prefix = '!'
@@ -48,4 +49,20 @@ async def on_message(message):
         set_user_balance(message.author, get_user_balance(message.author) + 100)
         await client.send_message(message.channel, 'Congratulations %s! You have been awarded 100 lua points!\nYour current balance is %s' % (message.author, get_user_balance(message.author)))
 
+    if is_command(message, 'roll'):
+        if get_user_balance(message.author) < 10:
+            await client.send_message(message.channel, '%s, you do not have enough points to play a roulette.' % str(message.author))
+        else:
+            set_user_balance(message.author, get_user_balance(message.author) - 10)
+            await client.send_message(message.channel, 'You are gamble addicted %s!\nRolling a roulette...' % str(message.author))
+            roll = random.randint(0, 100)
+            if roll % 3 == 0:
+                set_user_balance(message.author, get_user_balance(message.author) + 20)
+                await client.send_message(message.channel, 'Woah! %s, you doubled your points!' % str(message.author))
+            elif roll % 3 == 1:
+                set_user_balance(message.author, get_user_balance(message.author) + 10)
+                await client.send_message(message.channel, '%s, you regained your points.' % str(message.author))
+            else:
+                await client.send_message(message.channel, '%s, you totally lost your points..' % str(message.author))
+        
 client.run('MjU0MjU3MjIxMzYwMjg3NzQ1.CyMcHQ.NrTHeRYee9oDI5Tn8rQCghSArN8')
