@@ -28,16 +28,16 @@ def get_random_from_dict_by_weight(outcome_dict):
     total_weight = 0
     
     for outcome,weight in outcome_dict.items():
-        total_weight = total_weight + weight
+        total_weight += weight
 
     choice = random.randint(1, total_weight)
     
     counter = 1
     for outcome,weight in outcome_dict.items():
-        if choice >= counter and choice < counter+weight:
+        if choice < counter+weight:
             return outcome
         else:
-            counter = counter + weight
+            counter += + weight
 
 @client.event
 async def on_ready():
@@ -90,7 +90,7 @@ async def on_message(message):
     if is_command(message, 'roll'):
         if get_user_balance(author) >= GAMBLING_BET_AMOUNT:
             roll = get_random_from_dict_by_weight(GAMBLING_OUTCOMES)
-            await client.send_message(channel, roll)
+            #await client.send_message(channel, roll)
             
             set_user_balance(author, get_user_balance(author) - GAMBLING_BET_AMOUNT)
             await client.send_message(channel, 'You are gamble addicted %s!\nRolling a roulette for %s points...' % (author, GAMBLING_BET_AMOUNT))
