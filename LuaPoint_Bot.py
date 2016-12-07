@@ -2,7 +2,11 @@ import discord
 import asyncio
 import chatlogging
 import random
+import logging
 client = discord.Client()
+
+#Display useful info in terminal
+logging.basicConfig(level=logging.INFO)
 
 command_prefix = '!'
 user_balance_dict = {'Placeholder' : 0}
