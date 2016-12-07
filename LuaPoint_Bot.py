@@ -37,4 +37,15 @@ async def on_message(message):
         set_user_balance(message.author, get_user_balance(message.author) + 10)
         await client.send_message(message.channel, 'Congratulations %s! You have been awarded 10 lua points!\nYour current balance is %s' % (message.author, get_user_balance(message.author)))
 
+    if is_command(message, 'piano'):
+        if(get_user_balance(message.author) > 99):
+            await client.send_message(message.channel, '%s, 100 lua points were taken from you \n https://i.gyazo.com/9b786ec4c43c12d2c7406c91e0404501.gif' % str(message.author))
+            set_user_balance(message.author, get_user_balance(message.author)-100)
+        else:
+            await client.send_message(message.channel, '%s, 100 lua points are needed for Anne to play the piano' % str(message.author))
+
+    if is_command(message, 'motherload'):
+        set_user_balance(message.author, get_user_balance(message.author) + 100)
+        await client.send_message(message.channel, 'Congratulations %s! You have been awarded 100 lua points!\nYour current balance is %s' % (message.author, get_user_balance(message.author)))
+
 client.run('MjU0MjU3MjIxMzYwMjg3NzQ1.CyMcHQ.NrTHeRYee9oDI5Tn8rQCghSArN8')
