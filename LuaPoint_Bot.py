@@ -55,18 +55,18 @@ async def on_message(message):
 
     if is_command(message, 'roll'):
         if get_user_balance(message.author) < 10:
-            await client.send_message(message.channel, '{}, you do not have enough points to play a roulette.'.format(message.author))
+            await client.send_message(message.channel, '%s, you do not have enough points to play a roulette.' % str(message.author))
         else:
             set_user_balance(message.author, get_user_balance(message.author) - 10)
-            await client.send_message(message.channel, 'You are gamble addicted {}!\nRolling a roulette...'.format(message.author))
+            await client.send_message(message.channel, 'You are gamble addicted %s!\nRolling a roulette for 10 points...' % str(message.author))
             roll = random.randint(0, 100)
             if roll % 3 == 0:
                 set_user_balance(message.author, get_user_balance(message.author) + 20)
-                await client.send_message(message.channel, 'Woah! {}, you doubled your points!'.format(message.author))
+                await client.send_message(message.channel, 'Woah! %s, you doubled your points! Your total is %s now' % (message.author, get_user_balance(message.author)))
             elif roll % 3 == 1:
                 set_user_balance(message.author, get_user_balance(message.author) + 10)
-                await client.send_message(message.channel, '{}, you regained your points.'.format(message.author))
+                await client.send_message(message.channel, '%s, you regained your points. Your total is %s now' % (message.author, get_user_balance(message.author)))
             else:
-                await client.send_message(message.channel, '{}, you totally lost your points..'.format(message.author))
+                await client.send_message(message.channel, '%s, you totally lost your points.. Your total is %s now' % (message.author, get_user_balance(message.author)))
 
 client.run('MjU0MjU3MjIxMzYwMjg3NzQ1.CyMcHQ.NrTHeRYee9oDI5Tn8rQCghSArN8')
