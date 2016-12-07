@@ -11,6 +11,11 @@ logging.basicConfig(level=logging.INFO)
 command_prefix = '!'
 user_balance_dict = {'Placeholder' : 0}
 
+GAMBLING_OUTCOMES = {'lose' : 4, 'double' : 1, 'keep' : 2}
+GAMBLING_BET_AMOUNT = 10
+
+CAT_GIF_PRICE = 20
+
 def is_command(message, label):
     return message.content.startswith('{}{}'.format(command_prefix, label))
 
@@ -50,21 +55,11 @@ async def on_message(message):
     #    Change all the .format() to %s
     #    because it is causing issues
     #    with chat logging.
-    #    Make constants for cost of
-    #    commands and gambling rewards.
-
-
-    #    str(author) is not needed when calling
-    #    user balance functions, or formating text
     
     chatlogging.cmdlog(message)
 
     author = message.author
     channel = message.channel
-
-    GAMBLING_OUTCOMES = {'lose' : 4, 'double' : 1, 'keep' : 2}
-    GAMBLING_BET_AMOUNT = 10
-
     
     if is_command(message, 'hello'):
         await client.send_message(channel, 'Hello {}'.format(author))
@@ -75,14 +70,7 @@ async def on_message(message):
     if is_command(message, 'gift'):
         set_user_balance(message.author, get_user_balance(message.author) + 10)
         await client.send_message(message.channel, 'Congratulations {}! You have been awarded 10 lua points!\nYour current balance is {}'.format(author, get_user_balance(author)))
-
-    if is_command(message, 'piano'):
-        if(get_user_balance(author) > 99):
-            await client.send_message(channel, '{}, 100 lua points were taken from you \n https://i.gyazo.com/9b786ec4c43c12d2c7406c91e0404501.gif'.format(author))
-            set_user_balance(author, get_user_balance(author)-100)
-        else:
-            await client.send_message(channel, '{}, 100 lua points are needed for Anne to play the piano'.format(author))
-
+    
     if is_command(message, 'motherload'):
         set_user_balance(author, get_user_balance(author) + 100)
         await client.send_message(channel, 'Congratulations {}! You have been awarded 100 lua points!\nYour current balance is {}'.format(author, get_user_balance(author)))
@@ -90,7 +78,6 @@ async def on_message(message):
     if is_command(message, 'roll'):
         if get_user_balance(author) >= GAMBLING_BET_AMOUNT:
             roll = get_random_from_dict_by_weight(GAMBLING_OUTCOMES)
-            await client.send_message(channel, roll)
             
             set_user_balance(author, get_user_balance(author) - GAMBLING_BET_AMOUNT)
             await client.send_message(channel, 'You are gamble addicted %s!\nRolling a roulette for %s points...' % (author, GAMBLING_BET_AMOUNT))
@@ -108,5 +95,11 @@ async def on_message(message):
 
         else:
             await client.send_message(channel, '%s, you do not have enough points to play a roulette.' % author)
+
+    if is_command(message, 'cat'):
+        if get_user_balance(author) >= CAT_GIF_PRICE:
+            await client.send_message(channel, 'Took %s from %s\n Have your cat gif:\n%s%s%s' % (CAT_GIF_PRICE, author, 'http://www.catgifpage.com/gifs/', random.randint(1,310), '.gif'))
+        else:
+            await client.send_message(channel, '%s, you need %s to summon a cat' % (author, CAT_GIF_PRICE))
 
 client.run('MjU0MjU3MjIxMzYwMjg3NzQ1.CyMcHQ.NrTHeRYee9oDI5Tn8rQCghSArN8')
