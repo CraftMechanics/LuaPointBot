@@ -16,6 +16,9 @@ GAMBLING_BET_AMOUNT = 10
 
 CAT_GIF_PRICE = 20
 
+PIANO_PRICE = 100
+PIANO_URL = 'http://i.imgur.com/lQAIUT8.gifv'
+
 def is_command(message, label):
     return message.content.startswith('{}{}'.format(command_prefix, label))
 
@@ -98,8 +101,16 @@ async def on_message(message):
 
     if is_command(message, 'cat'):
         if get_user_balance(author) >= CAT_GIF_PRICE:
+            set_user_balance(author, get_user_balance(author) - CAT_GIF_PRICE)
             await client.send_message(channel, 'Took %s from %s\n Have your cat gif:\n%s%s%s' % (CAT_GIF_PRICE, author, 'http://www.catgifpage.com/gifs/', random.randint(1,310), '.gif'))
         else:
             await client.send_message(channel, '%s, you need %s to summon a cat' % (author, CAT_GIF_PRICE))
 
+    if is_command(message, 'piano'):
+        if get_user_balance(author) >= PIANO_PRICE:
+            set_user_balance(author, get_user_balance(author) - PIANO_PRICE)
+            await client.send_message(channel, 'Withdrawed %s from %s\nPlaying the piano: %s' % (author, PIANO_PRICE, PIANO_URL))
+        else:
+            await client.send_message(channel, '%s, you need %s for a piano' % (author, PIANO_PRICE))
+            
 client.run('MjU0MjU3MjIxMzYwMjg3NzQ1.CyMcHQ.NrTHeRYee9oDI5Tn8rQCghSArN8')
