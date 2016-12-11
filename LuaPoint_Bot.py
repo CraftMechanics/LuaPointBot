@@ -4,6 +4,7 @@ import chatlogging
 import random
 import logging
 import commands
+import slots
 client = discord.Client()
 
 #Display useful info in terminal
@@ -21,6 +22,11 @@ async def on_message(message):
     for i in range(0, len(cmdlist)):
         if is_command(message, cmdlist[i]):
             await client.send_message(channel, commands.reply(cmdlist[i], message))
+
+    if is_command(message, "slots"):
+        slots.createpic()
+        with open('img.png', 'rb') as f:
+            await client.send_file(channel, f)
 
 @client.event
 async def on_ready():

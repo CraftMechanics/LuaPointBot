@@ -6,6 +6,7 @@ GAMBLING_OUTCOMES = {'lose' : 10, 'double' : 5, 'keep' : 6, 'quadruple' : 2, 'JA
 GAMBLING_BET_AMOUNT = 10
 
 CAT_GIF_PRICE = 20
+SLOTS_PRICE = 20
 PIANO_PRICE = 100
 PIANO_URL = 'http://i.imgur.com/lQAIUT8.gifv'
 
