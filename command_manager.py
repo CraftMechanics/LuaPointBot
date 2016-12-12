@@ -5,6 +5,7 @@ import motherload_cmd
 import roll_cmd
 import cat_cmd
 import piano_cmd
+import goat_cmd
 
 COMMAND_PREFIX = '!'
 
@@ -33,5 +34,8 @@ def return_command_response(message):
 
     if is_command(message, 'piano'):
         return piano_cmd.return_command_response(message)
+
+    if is_command(message, 'goat'):
+        return goat_cmd.return_command_response(message)
 
     return None

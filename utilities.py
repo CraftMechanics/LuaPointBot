@@ -1,4 +1,5 @@
 import random
+import urllib
 
 def get_random_from_dict_by_weight(outcome_dict):
     total_weight = 0
