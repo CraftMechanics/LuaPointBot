@@ -8,6 +8,6 @@ def return_command_response(message):
 
     if economy.get_user_balance(author) >= PIANO_PRICE:
         economy.set_user_balance(author, economy.get_user_balance(author) - PIANO_PRICE)
-        return 'Withdrawed {} from %s\nPlaying the piano: %s'.format(author, PIANO_PRICE, PIANO_URL)
+        return 'Withdrawed {} from {}\nPlaying the piano: {}'.format(author, PIANO_PRICE, PIANO_URL)
     else:
         return '{}, you need {} for a piano'.format(author, PIANO_PRICE)

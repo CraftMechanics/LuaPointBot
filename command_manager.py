@@ -26,7 +26,7 @@ def return_command_response(message):
         return motherload_cmd.return_command_response(message)
 
     if is_command(message, 'roll'):
-        return roll_cmd.return_command_response
+        return roll_cmd.return_command_response(message)
 
     if is_command(message, 'cat'):
         return cat_cmd.return_command_response(message)
