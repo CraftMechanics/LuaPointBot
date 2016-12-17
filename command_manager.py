@@ -40,9 +40,9 @@ def return_command_response(message):
     if is_command(message, 'piano'):
         PIANO_PRICE = 100
         PIANO_URL = 'http://i.imgur.com/lQAIUT8.gifv'
-        if economy.get_user_balance(author) >= PIANO_PRICE:
+        if economy.get_user_balance(user) >= PIANO_PRICE:
             economy.withdraw_from_user_balance(user, PIANO_PRICE)
-            return 'Withdrawed {} from {}\nPlaying the piano:\n{}'.format(author, PIANO_PRICE, PIANO_URL)
+            return 'Withdrawed {} from {}\nPlaying the piano:\n{}'.format(user, PIANO_PRICE, PIANO_URL)
         else:
             return '{}, you need {} for a piano'.format(user, PIANO_PRICE)
 
