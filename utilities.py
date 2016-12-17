@@ -1,5 +1,7 @@
 import random
 import urllib
+import json
+import requests
 
 def get_random_from_dict_by_weight(outcome_dict):
     total_weight = 0
@@ -15,3 +17,9 @@ def get_random_from_dict_by_weight(outcome_dict):
             return outcome
         else:
             counter += weight
+
+def get_random_gif_by_tag(tag):    
+    response = requests.get(url='http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag={}'.format(tag))
+    data = response.json()
+    gif = data['data']['url']
+    return gif
