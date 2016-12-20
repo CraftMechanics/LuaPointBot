@@ -9,7 +9,7 @@ def get_user_balance(user):
         return get_user_balance(user)
 
 def set_user_balance(user, balance):
-    user_balance_dict[str(user)] = balance;
+    user_balance_dict[str(user)] = balance
 
 def add_to_user_balance(user, amount):
     set_user_balance(user, get_user_balance(user)+amount)
