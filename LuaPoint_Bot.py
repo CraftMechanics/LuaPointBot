@@ -20,4 +20,6 @@ async def on_message(message):
 async def on_ready():
     chatlogging.cmdlog('', 'login')
             
-client.run('MjU0MjU3MjIxMzYwMjg3NzQ1.CyMcHQ.NrTHeRYee9oDI5Tn8rQCghSArN8')
+
+key = input('Please enter bot token: ')
+client.run(key)
